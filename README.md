@@ -93,8 +93,7 @@ point you at the play ideas for it.
 
 ## Where the content comes from
 
-This is the part most apps are vague about, so Little Milestones is specific — in
-the app itself, on the cards, not just here.
+This is the part most apps are vague about, so Little Milestones is specific and tells you the source of the reseach.
 
 - **Milestone ages** follow the CDC's *Learn the Signs. Act Early.* checklists as
   revised with the AAP in 2022. Each listed age is what about 75% of children do
@@ -109,7 +108,7 @@ the app itself, on the cards, not just here.
   the rest are presented as practice, not findings.
 
 > **Not medical advice.** If something worries you, speak to your health visitor
-> or GP — and expect development screening at around 9, 18 and 30 months.
+> or GP, and expect development screening at around 9, 18 and 30 months.
 
 ---
 
@@ -126,7 +125,7 @@ app can read and that it can't use to see the rest of your files. It asks for
 exactly one scope, `drive.appdata`, and nothing else. Set it up in
 [DRIVE_SETUP.md](DRIVE_SETUP.md).
 
-Without it the app is fully functional — a lost phone loses the thread, which the
+Without it the app is fully functional. A lost phone loses the thread, which the
 opening screen tells you plainly rather than burying.
 
 ---
