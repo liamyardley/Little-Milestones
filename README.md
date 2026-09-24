@@ -29,9 +29,9 @@ The thread is a map, not a schedule.
 
 **Levels, not ticks.** A milestone isn't binary. "Rolls back to tummy" goes
 *first time → with help → on their own*. "Walks unaided" goes *cruising → first
-steps → across a room → confident on uneven ground*. You can step back down as easily as
-up. What you get is a picture of movement over months, rather than a box that was
-either ticked or accusingly empty.
+steps → across a room → confident on uneven ground*. You can step back down as
+easily as up. What you get is a picture of movement over months, rather than a
+box that was either ticked or accusingly empty.
 
 And the part that turns tracking into something worth doing: **every milestone
 comes with things to try.** Not filler. A specific, five-minute, do-it-tonight
