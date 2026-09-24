@@ -155,8 +155,7 @@ before committing to it.
 
 ## Built with
 
-Expo (SDK 57) and React Native, targeting iOS and Android. No backend, because
-there's nothing to put on one.
+Expo (SDK 57) and React Native, targeting iOS and Android. 
 
 ```
 App.js                     root: fonts, provider, which screen is showing
@@ -179,6 +178,4 @@ src/
 design-src/                the original design canvas, kept for reference
 ```
 
-The interface is a port of a Claude Design canvas; the milestone and activity
-content is carried across verbatim in `src/data/content.js`, which is the single
-file to edit if you want to change what the app teaches.
+
