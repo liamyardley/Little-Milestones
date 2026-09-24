@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "Thread",
-    "slug": "thread-milestones",
+    "name": "Little Milestones",
+    "slug": "little-milestones",
     "version": "1.0.0",
     "orientation": "portrait",
-    "scheme": "thread",
+    "scheme": "littlemilestones",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "backgroundColor": "#faf7ef",
@@ -14,13 +14,13 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.thread.milestones",
+      "bundleIdentifier": "com.littlemilestones.app",
       "infoPlist": {
-        "NSPhotoLibraryUsageDescription": "Thread lets you attach a photo to a milestone so you remember the day it happened."
+        "NSPhotoLibraryUsageDescription": "Little Milestones lets you attach a photo to a milestone so you remember the day it happened."
       }
     },
     "android": {
-      "package": "com.thread.milestones",
+      "package": "com.littlemilestones.app",
       "edgeToEdgeEnabled": true,
       "adaptiveIcon": {
         "backgroundColor": "#faf7ef"
@@ -35,7 +35,7 @@
       [
         "expo-image-picker",
         {
-          "photosPermission": "Thread lets you attach a photo to a milestone so you remember the day it happened."
+          "photosPermission": "Little Milestones lets you attach a photo to a milestone so you remember the day it happened."
         }
       ],
       "@react-native-community/datetimepicker"

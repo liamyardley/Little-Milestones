@@ -42,7 +42,7 @@ export default function Settings({
   const confirmForget = () => {
     Alert.alert(
       'Remove the Drive backup?',
-      'Thread deletes everything it has stored in your Drive. What is on this phone is untouched.',
+      'Little Milestones deletes everything it has stored in your Drive. What is on this phone is untouched.',
       [
         { text: 'Cancel', style: 'cancel' },
         { text: 'Remove', style: 'destructive', onPress: () => drive.wipeNow() },
@@ -147,9 +147,9 @@ export default function Settings({
               )}
 
               <Body size={10.5} color={C.neutral600} style={{ marginTop: 10 }}>
-                Thread writes to a private app folder in your Drive that nothing else can read, and
-                it never asks for the rest of your files. Backup is entirely optional — the app works
-                the same without it.
+                Little Milestones writes to a private app folder in your Drive that nothing else
+                can read, and it never asks for the rest of your files. Backup is entirely
+                optional — the app works the same without it.
               </Body>
             </>
           ) : (

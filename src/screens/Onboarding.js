@@ -15,7 +15,7 @@ export default function Onboarding({ onStart, onSample, onRestore, drive }) {
           <Icon name="path" size={24} color={C.accent800} />
         </View>
 
-        <Text style={styles.wordmark}>Thread</Text>
+        <Text style={styles.wordmark}>Little Milestones</Text>
         <Body size={13} style={styles.blurb}>
           Every milestone from the second trimester to three years, with something useful to do at each one.
         </Body>

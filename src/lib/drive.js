@@ -200,7 +200,7 @@ export const restore = async (token, onProgress = () => {}) => {
   return { ...state, photos, restoredAt: new Date().toISOString() };
 };
 
-/** Remove everything Thread has put in the user's Drive. */
+/** Remove everything Little Milestones has put in the user's Drive. */
 export const wipe = async token => {
   const res = await check(
     await fetch(`${API}/files?spaces=appDataFolder&fields=files(id)&pageSize=1000`, {

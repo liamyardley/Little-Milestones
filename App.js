@@ -71,7 +71,7 @@ function Root() {
   const runRestore = useCallback(async () => {
     const restored = await drive.restoreNow();
     if (restored === null) {
-      Alert.alert('Nothing to restore', 'No Thread backup was found in this Google account.');
+      Alert.alert('Nothing to restore', 'No Little Milestones backup was found in this Google account.');
       return;
     }
     if (!restored) return; // the hook surfaced an error

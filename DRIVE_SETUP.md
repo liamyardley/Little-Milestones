@@ -1,6 +1,6 @@
 # Google Drive backup — setup
 
-Backup is **optional**. With nothing configured, Thread works normally: the
+Backup is **optional**. With nothing configured, Little Milestones works normally: the
 Settings screen shows "Not configured in this build" and every other feature
 behaves as usual. Nothing in the app asks the user to sign in to start.
 
@@ -28,6 +28,10 @@ Two kinds of object end up there:
 | `thread.json` | the whole state document — profile, levels, notes, results |
 | `photo-<file>` | one file per milestone photo |
 
+`thread.json` keeps the app's original working name on purpose. It is invisible to
+the user, and renaming it would orphan any backup already sitting in someone's
+Drive. The same goes for the local storage key.
+
 ## 1. Create the Google Cloud project
 
 1. Go to the [Google Cloud Console](https://console.cloud.google.com/) and create
@@ -46,13 +50,13 @@ Two kinds of object end up there:
 Under **APIs & Services → Credentials → Create credentials → OAuth client ID**,
 create one per platform you build for. The bundle/package name below must match
 `app.json` (`ios.bundleIdentifier` and `android.package`), currently
-`com.thread.milestones`.
+`com.littlemilestones.app`.
 
 | Platform | Application type | Fields |
 | --- | --- | --- |
-| iOS | iOS | Bundle ID `com.thread.milestones` |
-| Android | Android | Package name `com.thread.milestones`, plus the SHA-1 of your signing key |
-| Expo Go / dev | Web application | Redirect URI `https://auth.expo.io/@<your-expo-username>/thread-milestones` |
+| iOS | iOS | Bundle ID `com.littlemilestones.app` |
+| Android | Android | Package name `com.littlemilestones.app`, plus the SHA-1 of your signing key |
+| Expo Go / dev | Web application | Redirect URI `https://auth.expo.io/@<your-expo-username>/little-milestones` |
 
 For the Android SHA-1 from an EAS build:
 
@@ -87,7 +91,7 @@ Open the app → tap the avatar (top left) → **Google Drive backup**:
   after edits stop.
 - **Restore from Drive** — pulls the backup down and replaces what is on the
   phone (it asks first).
-- **Remove the backup from Drive** — deletes everything Thread has stored there.
+- **Remove the backup from Drive** — deletes everything the app has stored there.
 
 On a new phone, the onboarding screen also offers **Restore from a Google Drive
 backup** so a thread can be brought across without setting the child up again.
@@ -95,7 +99,7 @@ backup** so a thread can be brought across without setting the child up again.
 ## Notes on how it behaves
 
 - **Tokens are short-lived.** Google's native flow returns an access token good
-  for about an hour and no refresh token. Thread keeps it until it lapses, then
+  for about an hour and no refresh token. The app keeps it until it lapses, then
   reopens the consent screen the next time you back up. This is why "back up
   after every change" is best-effort rather than guaranteed — it works while the
   token is alive.

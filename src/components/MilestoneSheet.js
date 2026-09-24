@@ -13,7 +13,7 @@ const pickImage = async () => {
   if (!permission.granted) {
     Alert.alert(
       'Photo access is off',
-      'Thread needs permission to your photos to attach one to a milestone. You can turn it on in Settings.',
+      'Little Milestones needs permission to your photos to attach one to a milestone. You can turn it on in Settings.',
     );
     return null;
   }
@@ -35,7 +35,7 @@ export default function MilestoneSheet({
 
   const onPhotoPress = async () => {
     if (uri) {
-      Alert.alert('Remove this photo?', 'It will be deleted from Thread.', [
+      Alert.alert('Remove this photo?', 'It will be deleted from Little Milestones.', [
         { text: 'Keep it', style: 'cancel' },
         { text: 'Remove', style: 'destructive', onPress: onClearPhoto },
       ]);
