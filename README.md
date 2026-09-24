@@ -1,6 +1,6 @@
 # Little Milestones
 
-**A map of your child's first three years — and something to do at every point on it.**
+**A map of your child's first three years, and something to do at every point on it.**
 
 Little Milestones tracks the milestones that matter, from the second trimester to
 age three, and pairs every single one with play ideas and small experiments that
