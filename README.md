@@ -10,22 +10,15 @@ help you support it. Not a checklist that makes you anxious. A thread you follow
 
 ## Why this exists
 
-Most milestone trackers do one of two things. They hand you a checklist with
-hard ages attached — which turns a wide, normal range into a deadline you feel
-you're failing — or they tell you what's coming and leave you there, with no
-answer to the only question that actually matters:
+Most milestone trackers focused on set deadlines, when every child will develop
+at their own pace, in their own time. We also wanted to offer ideas and support to
+help in your childs development, and more importantly, help you bond with you baby.
 
 > Okay. So what do I *do* about it?
 
-Little Milestones answers that question on every card.
-
-Two design decisions follow from it:
-
 **Ranges, not deadlines.** Every age here is a window, not a due date. The CDC
-milestones it uses describe what about *75% of children* do by a given age —
-they were never meant to be a pass mark. The app says so on the card, shows the
-range, and names its source. Children arrive at these things in their own order.
-The thread is a map, not a schedule.
+milestones it uses describe what about *75% of children* do by a given age,
+they were never meant to be a pass mark. 
 
 **Levels, not ticks.** A milestone isn't binary. "Rolls back to tummy" goes
 *first time → with help → on their own*. "Walks unaided" goes *cruising → first
@@ -34,8 +27,8 @@ easily as up. What you get is a picture of movement over months, rather than a
 box that was either ticked or accusingly empty.
 
 And the part that turns tracking into something worth doing: **every milestone
-comes with things to try.** Not filler. A specific, five-minute, do-it-tonight
-suggestion that supports the exact skill you were just reading about — and that
+comes with things to try.** A specific, five-minute, do-it-tonight
+suggestion that supports the exact skill you were just reading about, and that
 mostly amounts to paying close attention to your child, which is the thing that
 builds the bond as much as it builds the skill.
 
