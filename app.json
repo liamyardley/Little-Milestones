@@ -1,0 +1,52 @@
+{
+  "expo": {
+    "name": "Thread",
+    "slug": "thread-milestones",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "thread",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "backgroundColor": "#faf7ef",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#faf7ef"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.thread.milestones",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "Thread lets you attach a photo to a milestone so you remember the day it happened."
+      }
+    },
+    "android": {
+      "package": "com.thread.milestones",
+      "edgeToEdgeEnabled": true,
+      "adaptiveIcon": {
+        "backgroundColor": "#faf7ef"
+      }
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-web-browser",
+      "expo-font",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Thread lets you attach a photo to a milestone so you remember the day it happened."
+        }
+      ],
+      "@react-native-community/datetimepicker"
+    ],
+    "extra": {
+      "googleDrive": {
+        "expoClientId": "",
+        "iosClientId": "",
+        "androidClientId": "",
+        "webClientId": ""
+      }
+    }
+  }
+}
