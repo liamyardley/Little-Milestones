@@ -43,13 +43,13 @@ builds the bond as much as it builds the skill.
 
 ## What's in it
 
-| | |
+| What | How much |
 |---|---|
-| **20 stages** | Second trimester through to 36 months |
-| **60 milestones** | Across 5 developmental areas |
-| **165 levels** | Because "rolls over" isn't yes or no |
-| **107 play ideas** | Tied to the milestones they support |
-| **20 experiments** | Small, genuinely interesting things to try |
+| **Stages** | 20, second trimester through to 36 months |
+| **Milestones** | 60, across 5 developmental areas |
+| **Levels** | 165 — because "rolls back to tummy" isn't yes or no |
+| **Play ideas** | 107, each tied to the milestone it supports |
+| **Experiments** | 20 small, genuinely interesting things to try |
 
 Five areas, tracked separately so one strong area doesn't hide a quiet one:
 gross motor, fine motor, speech & language, social & emotional, and cognitive
