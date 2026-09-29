@@ -193,5 +193,3 @@ design-src/                the original design canvas, kept for reference
 ## Other docs
 
 - [DRIVE_SETUP.md](DRIVE_SETUP.md) — wiring up the optional Google Drive backup
-- [RELEASE.md](RELEASE.md) — what shipping to the App Store and Google Play would
-  involve, including the two items with multi-week lead times
