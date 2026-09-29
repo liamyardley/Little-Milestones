@@ -1,6 +1,6 @@
 # Little Milestones
 
-**A map of your child's first three years — and something to do at every point on it.**
+**A map of your child's first three years, and something to do at every point on it.**
 
 Little Milestones tracks the milestones that matter, from the second trimester to
 age three, and pairs every single one with play ideas and small experiments that
@@ -10,22 +10,15 @@ help you support it. Not a checklist that makes you anxious. A thread you follow
 
 ## Why this exists
 
-Most milestone trackers do one of two things. They hand you a checklist with
-hard ages attached — which turns a wide, normal range into a deadline you feel
-you're failing — or they tell you what's coming and leave you there, with no
-answer to the only question that actually matters:
+Most milestone trackers focused on set deadlines, when every child will develop
+at their own pace, in their own time. We also wanted to offer ideas and support to
+help in your childs development, and more importantly, help you bond with you baby.
 
 > Okay. So what do I *do* about it?
 
-Little Milestones answers that question on every card.
-
-Two design decisions follow from it:
-
 **Ranges, not deadlines.** Every age here is a window, not a due date. The CDC
-milestones it uses describe what about *75% of children* do by a given age —
-they were never meant to be a pass mark. The app says so on the card, shows the
-range, and names its source. Children arrive at these things in their own order.
-The thread is a map, not a schedule.
+milestones it uses describe what about *75% of children* do by a given age,
+they were never meant to be a pass mark. 
 
 **Levels, not ticks.** A milestone isn't binary. "Rolls back to tummy" goes
 *first time → with help → on their own*. "Walks unaided" goes *cruising → first
@@ -34,8 +27,8 @@ easily as up. What you get is a picture of movement over months, rather than a
 box that was either ticked or accusingly empty.
 
 And the part that turns tracking into something worth doing: **every milestone
-comes with things to try.** Not filler. A specific, five-minute, do-it-tonight
-suggestion that supports the exact skill you were just reading about — and that
+comes with things to try.** A specific, five-minute, do-it-tonight
+suggestion that supports the exact skill you were just reading about, and that
 mostly amounts to paying close attention to your child, which is the thing that
 builds the bond as much as it builds the skill.
 
@@ -100,8 +93,7 @@ point you at the play ideas for it.
 
 ## Where the content comes from
 
-This is the part most apps are vague about, so Little Milestones is specific — in
-the app itself, on the cards, not just here.
+This is the part most apps are vague about, so Little Milestones is specific and tells you the source of the reseach.
 
 - **Milestone ages** follow the CDC's *Learn the Signs. Act Early.* checklists as
   revised with the AAP in 2022. Each listed age is what about 75% of children do
@@ -116,7 +108,7 @@ the app itself, on the cards, not just here.
   the rest are presented as practice, not findings.
 
 > **Not medical advice.** If something worries you, speak to your health visitor
-> or GP — and expect development screening at around 9, 18 and 30 months.
+> or GP, and expect development screening at around 9, 18 and 30 months.
 
 ---
 
@@ -133,7 +125,7 @@ app can read and that it can't use to see the rest of your files. It asks for
 exactly one scope, `drive.appdata`, and nothing else. Set it up in
 [DRIVE_SETUP.md](DRIVE_SETUP.md).
 
-Without it the app is fully functional — a lost phone loses the thread, which the
+Without it the app is fully functional. A lost phone loses the thread, which the
 opening screen tells you plainly rather than burying.
 
 ---
@@ -162,8 +154,7 @@ before committing to it.
 
 ## Built with
 
-Expo (SDK 57) and React Native, targeting iOS and Android. No backend, because
-there's nothing to put on one.
+Expo (SDK 57) and React Native, targeting iOS and Android. 
 
 ```
 App.js                     root: fonts, provider, which screen is showing
@@ -186,9 +177,6 @@ src/
 design-src/                the original design canvas, kept for reference
 ```
 
-The interface is a port of a Claude Design canvas; the milestone and activity
-content is carried across verbatim in `src/data/content.js`, which is the single
-file to edit if you want to change what the app teaches.
 
 ---
 
