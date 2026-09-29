@@ -9,11 +9,12 @@
     "newArchEnabled": true,
     "backgroundColor": "#faf7ef",
     "splash": {
+      "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#faf7ef"
+      "backgroundColor": "#fbf4e8"
     },
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
       "bundleIdentifier": "com.littlemilestones.app",
       "infoPlist": {
         "NSPhotoLibraryUsageDescription": "Little Milestones lets you attach a photo to a milestone so you remember the day it happened."
@@ -23,11 +24,13 @@
       "package": "com.littlemilestones.app",
       "edgeToEdgeEnabled": true,
       "adaptiveIcon": {
-        "backgroundColor": "#faf7ef"
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#fbf4e8"
       }
     },
     "web": {
-      "bundler": "metro"
+      "bundler": "metro",
+      "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-web-browser",
@@ -47,6 +50,7 @@
         "androidClientId": "",
         "webClientId": ""
       }
-    }
+    },
+    "icon": "./assets/icon.png"
   }
 }
