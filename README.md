@@ -10,9 +10,12 @@ help you support it. Not a checklist that makes you anxious. A thread you follow
 
 ## Why this exists
 
-Most milestone trackers focused on set deadlines, when every child will develop
+Most milestone trackers focus on set deadlines, when every child will develop
 at their own pace, in their own time. We also wanted to offer ideas and support to
-help in your childs development, and more importantly, help you bond with you baby.
+help in your child's development, and more importantly, help you bond with your baby.
+
+Most trackers tell you what is coming next and stop there, leaving the question
+that actually matters:
 
 > Okay. So what do I *do* about it?
 
@@ -58,7 +61,7 @@ years.
 
 Finish a milestone and the app stops to mark it. That moment is the point.
 
-<img width="599" height="704" alt="image" src="https://github.com/user-attachments/assets/4b01d0f1-2a65-4e87-a733-0a2296974fef" />
+<img width="400" alt="The thread — milestones down one side, things to do down the other" src="docs/screenshots/thread.png" />
 
 ### Play
 
@@ -74,7 +77,7 @@ These are bonding activities that happen to be developmental, which is the hones
 way round: the reason "serve and return" works is that it's just paying close
 attention to your child and answering them.
 
-<img width="620" height="875" alt="image" src="https://github.com/user-attachments/assets/33274c94-498a-4851-94f0-1d6e31fce06c" />
+<img width="400" alt="A play idea open over the list, with the steps and what it helps with" src="docs/screenshots/play.png" />
 
 ### Experiment
 
@@ -87,7 +90,7 @@ you can do on a rug in five minutes. Log what happened. There is no failing here
 "not yet" is data too, and trying the same thing a month later is how you actually
 see your child change.
 
-<img width="623" height="886" alt="image" src="https://github.com/user-attachments/assets/6e7effff-9055-4788-837a-e571dcc34713" />
+<img width="400" alt="An experiment open over the list, with its steps, source and the milestone it supports" src="docs/screenshots/experiments.png" />
 
 ### Progress
 
@@ -95,13 +98,13 @@ Completion ring, a bar per developmental area, your recent wins, and a grid of t
 photos you've attached. It'll tell you which area has the most still open, and
 point you at the play ideas for it.
 
-<img width="614" height="627" alt="image" src="https://github.com/user-attachments/assets/78adca32-b83e-447e-b904-372d38b9a37f" />
+<img width="400" alt="Progress — completion ring, a bar per developmental area, and recent wins" src="docs/screenshots/progress.png" />
 
 ---
 
 ## Where the content comes from
 
-This is the part most apps are vague about, so Little Milestones is specific and tells you the source of the reseach.
+This is the part most apps are vague about, so Little Milestones is specific and tells you the source of the research.
 
 - **Milestone ages** follow the CDC's *Learn the Signs. Act Early.* checklists as
   revised with the AAP in 2022. Each listed age is what about 75% of children do
@@ -118,7 +121,7 @@ This is the part most apps are vague about, so Little Milestones is specific and
 > **Not medical advice.** If something worries you, speak to your health visitor
 > or GP, and expect development screening at around 9, 18 and 30 months.
 
-<img width="618" height="651" alt="image" src="https://github.com/user-attachments/assets/42a5fd9d-2185-4121-bb1b-8288658dc378" />
+<img width="620" alt="The in-app note on where the milestone content comes from" src="docs/screenshots/sources.png" />
 
 ---
 
