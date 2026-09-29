@@ -58,6 +58,8 @@ years.
 
 Finish a milestone and the app stops to mark it. That moment is the point.
 
+<img width="599" height="704" alt="image" src="https://github.com/user-attachments/assets/4b01d0f1-2a65-4e87-a733-0a2296974fef" />
+
 ### Play
 
 **107 play ideas**, each one attached to the milestone it supports and tagged
@@ -72,6 +74,8 @@ These are bonding activities that happen to be developmental, which is the hones
 way round: the reason "serve and return" works is that it's just paying close
 attention to your child and answering them.
 
+<img width="620" height="875" alt="image" src="https://github.com/user-attachments/assets/33274c94-498a-4851-94f0-1d6e31fce06c" />
+
 ### Experiment
 
 **20 small experiments** — the most fun part of the app. Which sound gets a kick?
@@ -83,11 +87,15 @@ you can do on a rug in five minutes. Log what happened. There is no failing here
 "not yet" is data too, and trying the same thing a month later is how you actually
 see your child change.
 
+<img width="623" height="886" alt="image" src="https://github.com/user-attachments/assets/6e7effff-9055-4788-837a-e571dcc34713" />
+
 ### Progress
 
 Completion ring, a bar per developmental area, your recent wins, and a grid of the
 photos you've attached. It'll tell you which area has the most still open, and
 point you at the play ideas for it.
+
+<img width="614" height="627" alt="image" src="https://github.com/user-attachments/assets/78adca32-b83e-447e-b904-372d38b9a37f" />
 
 ---
 
@@ -109,6 +117,8 @@ This is the part most apps are vague about, so Little Milestones is specific and
 
 > **Not medical advice.** If something worries you, speak to your health visitor
 > or GP, and expect development screening at around 9, 18 and 30 months.
+
+<img width="618" height="651" alt="image" src="https://github.com/user-attachments/assets/42a5fd9d-2185-4121-bb1b-8288658dc378" />
 
 ---
 
