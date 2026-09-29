@@ -189,3 +189,11 @@ design-src/                the original design canvas, kept for reference
 The interface is a port of a Claude Design canvas; the milestone and activity
 content is carried across verbatim in `src/data/content.js`, which is the single
 file to edit if you want to change what the app teaches.
+
+---
+
+## Other docs
+
+- [DRIVE_SETUP.md](DRIVE_SETUP.md) — wiring up the optional Google Drive backup
+- [RELEASE.md](RELEASE.md) — what shipping to the App Store and Google Play would
+  involve, including the two items with multi-week lead times
