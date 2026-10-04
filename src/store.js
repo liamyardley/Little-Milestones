@@ -99,8 +99,8 @@ export const ThreadProvider = ({ children }) => {
     patch(prev => ({ ...prev, notes: { ...prev.notes, [milestoneId]: note } }));
   }, [patch]);
 
-  const addPhoto = useCallback(async (milestoneId, uri) => {
-    const record = await importPhoto(milestoneId, uri);
+  const addPhoto = useCallback(async (milestoneId, asset) => {
+    const record = await importPhoto(milestoneId, asset);
     patch(prev => {
       removePhoto(prev.photos[milestoneId]);
       return { ...prev, photos: { ...prev.photos, [milestoneId]: record } };

@@ -30,7 +30,8 @@
     },
     "web": {
       "bundler": "metro",
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "output": "single"
     },
     "plugins": [
       "expo-web-browser",
@@ -51,6 +52,9 @@
         "webClientId": ""
       }
     },
-    "icon": "./assets/icon.png"
+    "icon": "./assets/icon.png",
+    "experiments": {
+      "baseUrl": "/Little-Milestones"
+    }
   }
 }

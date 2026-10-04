@@ -54,9 +54,31 @@ create one per platform you build for. The bundle/package name below must match
 
 | Platform | Application type | Fields |
 | --- | --- | --- |
-| iOS | iOS | Bundle ID `com.littlemilestones.app` |
+| **Web app (GitHub Pages)** | Web application | **Authorised JavaScript origins**, not a redirect URI — see below |
 | Android | Android | Package name `com.littlemilestones.app`, plus the SHA-1 of your signing key |
+| iOS | iOS | Bundle ID `com.littlemilestones.app` |
 | Expo Go / dev | Web application | Redirect URI `https://auth.expo.io/@<your-expo-username>/little-milestones` |
+
+### The web client, in detail
+
+The web build signs in with **Google Identity Services**, which hands back an
+access token in the page rather than redirecting. So the web client is
+authorised by *origin*, and needs no redirect URI at all.
+
+Under **Authorised JavaScript origins**, add:
+
+```
+https://liamyardley.github.io
+http://localhost:8081
+http://localhost:8083
+```
+
+The origin is the scheme and host only — no path. GitHub Pages serves the app
+from `https://liamyardley.github.io/Little-Milestones/`, but the origin Google
+checks is `https://liamyardley.github.io`. The localhost entries are for
+testing the dev server and a local static build.
+
+Put that client id in **both** `webClientId` and `expoClientId`.
 
 For the Android SHA-1 from an EAS build:
 
@@ -83,7 +105,8 @@ runtime. Restart the dev server after editing `app.json`.
 
 ## 4. Try it
 
-Open the app → tap the avatar (top left) → **Google Drive backup**:
+On the phone app or the web app — the screens are the same. Tap the avatar
+(top left) → **Google Drive backup**:
 
 - **Connect** — opens Google's consent screen.
 - **Back up now** — uploads the thread and any photos not already up there.
@@ -95,6 +118,23 @@ Open the app → tap the avatar (top left) → **Google Drive backup**:
 
 On a new phone, the onboarding screen also offers **Restore from a Google Drive
 backup** so a thread can be brought across without setting the child up again.
+
+## One backup, both platforms
+
+A thread backed up from Android restores in the web app, and the other way
+round. That is deliberate, and it is why the code is arranged the way it is:
+
+- `src/lib/drive.js` is plain `fetch` plus calls into `photoStore`. It has no
+  platform-specific code, so both builds write an identical `thread.json` and
+  identical `photo-<file>` objects.
+- `state.photos` records `{ file, addedAt, driveId }` on every platform. `file`
+  is a *logical key*, never a path — `photoStore.js` resolves it to a file in
+  the documents directory, `photoStore.web.js` to a Blob in IndexedDB.
+- Only the OAuth step differs, and that is isolated in `useGoogleAuth.js` and
+  `useGoogleAuth.web.js`, which both return nothing but a short-lived token.
+
+If you ever change what goes into `thread.json`, bump `BACKUP_FORMAT` in
+`drive.js` so a future version can tell which shape it is reading.
 
 ## Notes on how it behaves
 
@@ -109,3 +149,9 @@ backup** so a thread can be brought across without setting the child up again.
   milestone simply comes back without its photo.
 - **Nothing is shared.** There is no server in the middle, no analytics, and no
   other account can see the appDataFolder.
+- **Backup matters more on the web than on a phone.** Browser storage is
+  evictable: Safari clears script-writable storage for sites not visited in
+  about a week, and Chrome evicts under storage pressure. Installing the app to
+  the home screen helps considerably, but Drive backup is the only real
+  guarantee a web user has. The app asks for persistent storage on launch,
+  which Chrome grants based on engagement; Safari does not honour it.

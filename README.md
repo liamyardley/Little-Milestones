@@ -2,6 +2,9 @@
 
 **A map of your child's first three years, and something to do at every point on it.**
 
+**[Open the web app](https://liamyardley.github.io/Little-Milestones/)** — works
+in any browser, installs to your home screen, and runs offline.
+
 Little Milestones tracks the milestones that matter, from the second trimester to
 age three, and pairs every single one with play ideas and small experiments that
 help you support it. Not a checklist that makes you anxious. A thread you follow together.
@@ -141,6 +144,14 @@ exactly one scope, `drive.appdata`, and nothing else. Set it up in
 Without it the app is fully functional. A lost phone loses the thread, which the
 opening screen tells you plainly rather than burying.
 
+On the **web app** the same holds, with one extra wrinkle: browser storage can
+be evicted. Safari clears it for sites you have not visited in about a week.
+Installing to the home screen helps a lot, and the app asks the browser for
+persistent storage, but on the web Drive backup is the only real guarantee.
+
+A backup made on Android restores in the browser, and the other way round. The
+thread and its photos are written in one format on every platform.
+
 ---
 
 ## Running it
@@ -163,6 +174,23 @@ There's a **"Have a look around with sample data"** link on the opening screen
 that loads a lived-in thread for a 14-month-old, if you want to see the app full
 before committing to it.
 
+### The web app
+
+The same codebase builds a static site - no separate project, no forked UI.
+
+```bash
+npx expo export --platform web --output-dir dist
+```
+
+Pushing to `main` deploys it to GitHub Pages through
+`.github/workflows/deploy-web.yml`. The one-time setup is **Settings -> Pages ->
+Source: GitHub Actions**.
+
+Two things the build depends on, both handled by the workflow: a `.nojekyll`
+marker, because Jekyll would otherwise strip the `_expo` directory and take the
+whole bundle with it; and `experiments.baseUrl` in `app.json`, which has to
+match the repository name for assets to resolve from a project-site subpath.
+
 ---
 
 ## Built with
@@ -176,7 +204,9 @@ src/
   theme.js                 palette, radii and gradients
   data/content.js          milestones, play ideas, experiments
   lib/
-    storage.js             local storage + on-device photo files
+    storage.js             the thread document, and photo records
+    photoStore.js(.web)    photo bytes: files on native, IndexedDB on web
+    useGoogleAuth.js(.web) the only part of Drive that differs per platform
     drive.js               Drive appDataFolder REST calls
     useDrive.js            OAuth + backup/restore, as a hook
     format.js              dates, ages, current stage
@@ -187,6 +217,7 @@ src/
     Main.js                header, stage scrubber, tabs, sheets
     Settings.js            profile, Drive backup, celebrations, reset
     tabs/                  Timeline, Play, Experiments, Progress
+public/                    the web shell: PWA manifest, service worker, icons
 design-src/                the original design canvas, kept for reference
 ```
 

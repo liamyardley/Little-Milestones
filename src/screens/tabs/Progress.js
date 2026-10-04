@@ -7,8 +7,28 @@ import { Body, Kicker } from '../../components/ui';
 import {
   DOMAINS, DOMAIN_NAMES, STAGES, allActivities, allMilestones,
 } from '../../data/content';
-import { photoUri } from '../../lib/storage';
+import usePhotoUri from '../../lib/usePhotoUri';
 import { C, FONT, G, R } from '../../theme';
+
+/** One tile in the memory grid. Its own component so each can resolve its
+ *  photo with a hook — on web that read is async. */
+const MemoryCell = ({ mem, onPress }) => {
+  const uri = usePhotoUri(mem && mem.record);
+  return (
+    <Pressable onPress={onPress} style={styles.memoryCell}>
+      {uri ? (
+        <Image source={{ uri }} style={styles.memoryImage} resizeMode="cover" />
+      ) : (
+        <View style={[styles.memoryEmpty, mem && styles.memorySolid]}>
+          <Icon name={mem ? 'image' : 'plus'} size={13} color={C.neutral600} fill={!!mem} />
+          <Text style={styles.memoryLabel} numberOfLines={2}>
+            {mem ? mem.milestone.t : 'Add'}
+          </Text>
+        </View>
+      )}
+    </Pressable>
+  );
+};
 
 const RING = 78;
 const RADIUS = 43;
@@ -75,7 +95,7 @@ export default function Progress({
   const memories = [0, 1, 2, 3, 4, 5].map(i => {
     const id = photoIds[i];
     const milestone = id ? all.find(m => m.id === id) : null;
-    return milestone ? { id, milestone, uri: photoUri(photos[id]) } : null;
+    return milestone ? { id, milestone, record: photos[id] } : null;
   });
 
   const stageSub = (STAGES.find(st => st.id === currentStage) || {}).sub || '';
@@ -146,22 +166,11 @@ export default function Progress({
       <Kicker style={styles.section}>Memories</Kicker>
       <View style={styles.memoryGrid}>
         {memories.map((mem, i) => (
-          <Pressable
+          <MemoryCell
             key={mem ? mem.id : `empty-${i}`}
+            mem={mem}
             onPress={() => mem && onOpenMilestone(mem.id)}
-            style={styles.memoryCell}
-          >
-            {mem && mem.uri ? (
-              <Image source={{ uri: mem.uri }} style={styles.memoryImage} resizeMode="cover" />
-            ) : (
-              <View style={[styles.memoryEmpty, mem && styles.memorySolid]}>
-                <Icon name={mem ? 'image' : 'plus'} size={13} color={C.neutral600} fill={!!mem} />
-                <Text style={styles.memoryLabel} numberOfLines={2}>
-                  {mem ? mem.milestone.t : 'Add'}
-                </Text>
-              </View>
-            )}
-          </Pressable>
+          />
         ))}
       </View>
 

@@ -7,15 +7,23 @@
 //   thread.json          the whole state document
 //   photo-<file>         one file per milestone photo
 //
+// Everything here is plain fetch against the Drive REST API and plain calls
+// into photoStore, so it runs unchanged on Android, iOS and the web. That is
+// what lets a backup made on a phone restore in a browser and the other way
+// round. Only the OAuth step differs per platform — see useGoogleAuth.
+//
 // Backup is off until the user turns it on, and the app is fully usable
 // without ever signing in.
 
 import Constants from 'expo-constants';
-import { File } from 'expo-file-system';
-import { ensurePhotoDir, photoFile } from './storage';
+import * as photoStore from './photoStore';
+import { mimeForName } from './mime';
 
 export const STATE_FILE = 'thread.json';
 export const SCOPES = ['https://www.googleapis.com/auth/drive.appdata'];
+
+// Bumped only if the shape of what we write to Drive changes incompatibly.
+export const BACKUP_FORMAT = 1;
 
 const API = 'https://www.googleapis.com/drive/v3';
 const UPLOAD = 'https://www.googleapis.com/upload/drive/v3';
@@ -112,18 +120,21 @@ export const getFileText = async (token, id) => {
   return res.text();
 };
 
+const getFileBytes = async (token, id) => {
+  const res = await check(
+    await fetch(`${API}/files/${id}?alt=media`, { headers: authHeaders(token) }),
+    'Downloading a photo',
+  );
+  return new Uint8Array(await res.arrayBuffer());
+};
+
 export const deleteFile = async (token, id) => {
   const res = await fetch(`${API}/files/${id}`, { method: 'DELETE', headers: authHeaders(token) });
   if (!res.ok && res.status !== 404) await check(res, 'Deleting from Drive');
 };
 
-const mimeForFile = name => {
-  const ext = (name.split('.').pop() || '').toLowerCase();
-  if (ext === 'png') return 'image/png';
-  if (ext === 'heic') return 'image/heic';
-  if (ext === 'webp') return 'image/webp';
-  return 'image/jpeg';
-};
+/** The Drive object name for a photo. Shared by every platform. */
+export const drivePhotoName = file => `photo-${file}`;
 
 /**
  * Push the thread to Drive. Photos already carrying a driveId are skipped, so
@@ -141,13 +152,13 @@ export const backup = async (token, state, onProgress = () => {}) => {
     const id = ids[i];
     const rec = photos[id];
     if (!rec || !rec.file || rec.driveId) continue;
-    const f = photoFile(rec.file);
-    if (!f || !f.exists) continue;
+    const data = await photoStore.getBase64(rec.file);
+    if (!data) continue;
     onProgress(`Uploading photo ${i + 1} of ${ids.length}…`);
     const driveId = await putFile(token, {
-      name: `photo-${rec.file}`,
-      mimeType: mimeForFile(rec.file),
-      data: await f.base64(),
+      name: drivePhotoName(rec.file),
+      mimeType: mimeForName(rec.file),
+      data,
       base64: true,
     });
     photos[id] = { ...rec, driveId };
@@ -155,7 +166,12 @@ export const backup = async (token, state, onProgress = () => {}) => {
   }
 
   onProgress('Saving the thread…');
-  const next = { ...state, photos, backedUpAt: new Date().toISOString() };
+  const next = {
+    ...state,
+    photos,
+    backupFormat: BACKUP_FORMAT,
+    backedUpAt: new Date().toISOString(),
+  };
   const existing = await findFile(token, STATE_FILE);
   await putFile(token, {
     id: existing && existing.id,
@@ -167,7 +183,10 @@ export const backup = async (token, state, onProgress = () => {}) => {
   return { state: next, uploadedPhotos };
 };
 
-/** Read the thread back from Drive, pulling down any photos we do not hold. */
+/**
+ * Read the thread back from Drive, pulling down any photo this device does not
+ * already hold. Written by one platform, readable by the other.
+ */
 export const restore = async (token, onProgress = () => {}) => {
   onProgress('Looking for a backup…');
   const meta = await findFile(token, STATE_FILE);
@@ -176,24 +195,33 @@ export const restore = async (token, onProgress = () => {}) => {
   onProgress('Downloading the thread…');
   const state = JSON.parse(await getFileText(token, meta.id));
 
-  ensurePhotoDir();
+  await photoStore.ready();
   const photos = { ...(state.photos || {}) };
   const ids = Object.keys(photos);
+
   for (let i = 0; i < ids.length; i += 1) {
     const rec = photos[ids[i]];
-    if (!rec || !rec.file || !rec.driveId) continue;
-    const dest = photoFile(rec.file);
-    if (!dest || dest.exists) continue;
+    if (!rec || !rec.file) { delete photos[ids[i]]; continue; }
+    if (await photoStore.has(rec.file)) continue;
+
+    // A backup from before driveIds were recorded, or one whose photo upload
+    // did not finish, can still be found by name.
+    let driveId = rec.driveId;
+    if (!driveId) {
+      const found = await findFile(token, drivePhotoName(rec.file));
+      driveId = found && found.id;
+    }
+    if (!driveId) { photos[ids[i]] = { ...rec, driveId: undefined }; continue; }
+
     onProgress(`Downloading photo ${i + 1} of ${ids.length}…`);
     try {
-      await File.downloadFileAsync(`${API}/files/${rec.driveId}?alt=media`, dest, {
-        headers: authHeaders(token),
-        idempotent: true,
-      });
+      const bytes = await getFileBytes(token, driveId);
+      await photoStore.putBytes(rec.file, bytes, mimeForName(rec.file));
+      photos[ids[i]] = { ...rec, driveId };
     } catch (e) {
-      // A photo that will not come down should not sink the whole restore —
+      // One photo that will not come down should not sink the whole restore —
       // drop the reference so the milestone simply shows no photo.
-      delete photos[ids[i]].driveId;
+      photos[ids[i]] = { ...rec, driveId: undefined };
     }
   }
 

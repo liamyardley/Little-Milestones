@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>Little Milestones</title>
+<meta name="description" content="Every milestone from the second trimester to three years, and something to do at each one.">
+
+<!-- relative, so the app works from a GitHub Pages subpath without knowing it -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#faf7ef">
+<link rel="icon" href="icons/icon-192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+
+<!-- iOS treats an added-to-home-screen app as standalone only with these -->
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Milestones">
+
+<style>
+  html, body, #root { height: 100%; margin: 0; background: #faf7ef; }
+  body { overscroll-behavior-y: none; -webkit-tap-highlight-color: transparent; }
+  /* first paint before the bundle lands */
+  #boot { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+  #boot span { width: 28px; height: 28px; border-radius: 50%;
+               border: 2px solid #e8e1d1; border-top-color: #c2962f;
+               animation: spin .8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+<div id="root"><div id="boot"><span></span></div></div>
+<script>
+  // Registered here rather than from the bundle so a cold, offline launch is
+  // served by the worker before any JavaScript of ours has to run.
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('sw.js').catch(function () {
+        // no service worker (private mode, http, unsupported) - the app still runs
+      });
+    });
+  }
+</script>
+</body>
+</html>

@@ -1,29 +1,25 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import * as Google from 'expo-auth-session/providers/google';
-import * as WebBrowser from 'expo-web-browser';
+import { useCallback, useEffect, useState } from 'react';
 import * as Drive from './drive';
+import useGoogleAuth from './useGoogleAuth';
 import { loadAuth, saveAuth } from './storage';
-
-WebBrowser.maybeCompleteAuthSession();
 
 const stillValid = auth => !!(auth && auth.token && auth.expiresAt > Date.now() + 60000);
 
 /**
  * Google Drive backup, as a hook.
  *
- * Google's native flow hands back an access token with about an hour on it and
- * no refresh token, which suits a backup that the user triggers: the token is
- * kept until it lapses, and any action taken after that re-opens the consent
- * screen first.
+ * Google's flow hands back an access token with about an hour on it and no
+ * refresh token, on every platform. That suits a backup the user triggers: the
+ * token is kept until it lapses, and any action taken after that opens the
+ * consent screen first. The platform difference lives entirely in
+ * useGoogleAuth; everything below is shared.
  */
 export default function useDrive() {
   const [auth, setAuth] = useState(null);
   const [loaded, setLoaded] = useState(false);
   const [busy, setBusy] = useState(null);
   const [error, setError] = useState(null);
-  const queued = useRef(null);
-
-  const [request, response, promptAsync] = Google.useAuthRequest(Drive.authConfig());
+  const google = useGoogleAuth();
 
   useEffect(() => {
     loadAuth().then(saved => {
@@ -32,52 +28,47 @@ export default function useDrive() {
     });
   }, []);
 
-  useEffect(() => {
-    if (!response) return;
-    if (response.type === 'success' && response.authentication?.accessToken) {
-      const next = {
-        token: response.authentication.accessToken,
-        expiresAt: Date.now() + (response.authentication.expiresIn || 3600) * 1000,
-      };
-      setAuth(next);
-      saveAuth(next);
-      setError(null);
-      const job = queued.current;
-      queued.current = null;
-      if (job) job(next.token);
-    } else if (response.type === 'error') {
-      setError(response.error?.message || 'Google sign-in failed.');
-      queued.current = null;
-    } else {
-      // dismissed or cancelled — not an error worth showing
-      queued.current = null;
-    }
-  }, [response]);
-
-  const signIn = useCallback(() => {
+  /** Returns a usable token, prompting if needed, or null if dismissed. */
+  const getToken = useCallback(async () => {
+    if (stillValid(auth)) return auth.token;
     if (!Drive.isConfigured()) {
-      setError('Google Drive backup is not configured in this build. See DRIVE_SETUP.md.');
-      return Promise.resolve(false);
+      throw new Error('Google Drive backup is not configured in this build. See DRIVE_SETUP.md.');
     }
+    const granted = await google.requestToken();
+    if (!granted) return null;
+    const next = { token: granted.token, expiresAt: Date.now() + granted.expiresIn * 1000 };
+    setAuth(next);
+    await saveAuth(next);
+    return next.token;
+  }, [auth, google]);
+
+  const signIn = useCallback(async () => {
     setError(null);
-    return promptAsync();
-  }, [promptAsync]);
+    try {
+      return !!(await getToken());
+    } catch (e) {
+      setError(e.message || String(e));
+      return false;
+    }
+  }, [getToken]);
 
   const signOut = useCallback(async () => {
     setAuth(null);
     await saveAuth(null);
   }, []);
 
-  /** Run `job(token)`, opening the consent screen first if we have no token. */
-  const withToken = useCallback(job => {
-    if (stillValid(auth)) return job(auth.token);
-    queued.current = job;
-    return signIn();
-  }, [auth, signIn]);
-
-  const run = useCallback((job, label) => withToken(async token => {
-    setBusy(label);
+  const run = useCallback(async (job, label) => {
     setError(null);
+    let token;
+    try {
+      token = await getToken();
+    } catch (e) {
+      setError(e.message || String(e));
+      return null;
+    }
+    if (!token) return null;   // dismissed
+
+    setBusy(label);
     try {
       return await job(token);
     } catch (e) {
@@ -90,7 +81,7 @@ export default function useDrive() {
     } finally {
       setBusy(null);
     }
-  }), [withToken]);
+  }, [getToken]);
 
   const backupNow = useCallback(
     state => run(token => Drive.backup(token, state, setBusy), 'Backing up…'),
@@ -109,7 +100,7 @@ export default function useDrive() {
 
   return {
     configured: Drive.isConfigured(),
-    ready: loaded && !!request,
+    ready: loaded && google.ready,
     signedIn: stillValid(auth),
     busy,
     error,

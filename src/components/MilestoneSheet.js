@@ -5,7 +5,7 @@ import Icon from './Icon';
 import Sheet from './Sheet';
 import { Body, Button, Field, Kicker, Title } from './ui';
 import { DOMAIN_NAMES } from '../data/content';
-import { photoUri } from '../lib/storage';
+import usePhotoUri from '../lib/usePhotoUri';
 import { C, FONT, R } from '../theme';
 
 const pickImage = async () => {
@@ -23,15 +23,16 @@ const pickImage = async () => {
     allowsEditing: true,
   });
   if (result.canceled || !result.assets?.length) return null;
-  return result.assets[0].uri;
+  return result.assets[0];
 };
 
 export default function MilestoneSheet({
   milestone, count, note, photo, firstName,
   onClose, onSetLevel, onSetNote, onAddPhoto, onClearPhoto,
 }) {
+  // hooks must run before any early return
+  const uri = usePhotoUri(photo);
   if (!milestone) return null;
-  const uri = photoUri(photo);
 
   const onPhotoPress = async () => {
     if (uri) {

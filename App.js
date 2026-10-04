@@ -11,6 +11,7 @@ import Main from './src/screens/Main';
 import Onboarding from './src/screens/Onboarding';
 import Settings from './src/screens/Settings';
 import useDrive from './src/lib/useDrive';
+import requestPersistentStorage from './src/lib/persistStorage';
 import { ThreadProvider, useThread } from './src/store';
 import { C } from './src/theme';
 
@@ -135,6 +136,9 @@ function Root() {
 }
 
 export default function App() {
+  // on web, ask the browser not to evict the thread
+  useEffect(() => { requestPersistentStorage(); }, []);
+
   const [fontsLoaded] = useFonts({
     Inter_300Light, Inter_400Regular, Inter_500Medium, Inter_600SemiBold,
   });
