@@ -21,12 +21,12 @@
         "http-server",
         "C:/Users/Liam/AppData/Local/Temp/claude/C--Users-Liam-Documents-Projects-Baby-Milestone-App/674efb54-d3db-44a7-87c3-7f766f9680d8/scratchpad/site",
         "-p",
-        "8083",
+        "8099",
         "-c-1",
         "--silent"
       ],
-      "port": 8083,
-      "url": "http://localhost:8083"
+      "port": 8099,
+      "url": "http://localhost:8099"
     }
   ]
 }

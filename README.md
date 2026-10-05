@@ -128,6 +128,43 @@ This is the part most apps are vague about, so Little Milestones is specific and
 
 ---
 
+## Install it on your phone
+
+There is nothing to download and no app store involved. Open the link, then
+add it to your home screen — it gets its own icon, opens without a browser bar,
+and works offline.
+
+### iPhone and iPad (Safari)
+
+Apple gives no install prompt, so this is the bit nobody finds on their own:
+
+1. Open **https://liamyardley.github.io/Little-Milestones/** in **Safari**
+   (it has to be Safari, not Chrome)
+2. Tap the **Share** button — the square with an arrow pointing up
+3. Scroll down the list and tap **Add to Home Screen**
+4. Tap **Add**
+
+### Android (Chrome)
+
+1. Open the link in **Chrome**
+2. Either tap the **Install** banner Chrome offers, or open the **three-dot
+   menu** and choose **Add to Home screen** / **Install app**
+3. Confirm
+
+### Desktop
+
+Chrome and Edge show an install icon at the right-hand end of the address bar.
+
+### Why bother installing
+
+It is not only cosmetic. **Safari deletes stored data for websites you have not
+visited in about a week.** A thread kept in an ordinary browser tab could vanish
+over a holiday. Added to the home screen it is treated as a real app and kept
+properly, and the app also asks the browser for persistent storage.
+
+Turning on Google Drive backup removes the worry entirely, on any platform.
+---
+
 ## Your data stays yours
 
 There is **no account and no sign-up.** The app opens, you name your child, and

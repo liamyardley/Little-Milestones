@@ -19,7 +19,20 @@
 <meta name="apple-mobile-web-app-title" content="Milestones">
 
 <style>
+  /* Expo's own generated index.html ships this reset; using a custom template
+     means carrying it ourselves. Without `#root { display: flex }` the app's
+     flex:1 root has no flex container, grows to its content height, and the
+     page scrolls instead of the list — which unpins the bottom tab bar. */
   html, body, #root { height: 100%; margin: 0; background: #faf7ef; }
+  #root { display: flex; flex-direction: column; }
+  body { overflow: hidden; }
+
+  /* 100% resolves against iOS Safari's *large* viewport, so with the toolbar
+     showing the page runs below the fold. dvh tracks the visible area. */
+  @supports (height: 100dvh) {
+    html, body, #root { height: 100dvh; }
+  }
+
   body { overscroll-behavior-y: none; -webkit-tap-highlight-color: transparent; }
   /* first paint before the bundle lands */
   #boot { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
