@@ -46,10 +46,10 @@
     ],
     "extra": {
       "googleDrive": {
-        "expoClientId": "",
+        "expoClientId": "257392078498-5249a6defka0kmfr3umincuse89a302j.apps.googleusercontent.com",
         "iosClientId": "",
         "androidClientId": "",
-        "webClientId": ""
+        "webClientId": "257392078498-5249a6defka0kmfr3umincuse89a302j.apps.googleusercontent.com"
       }
     },
     "icon": "./assets/icon.png",
