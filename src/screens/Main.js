@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -37,6 +37,7 @@ export default function Main({ thread, onOpenSettings }) {
   const scrollRef = useRef(null);
   const stageTops = useRef({});
   const threadTop = useRef(0);
+  const landedOnCurrentStage = useRef(false);
 
   const profile = state.profile;
   const childName = profile ? profile.name : 'Your child';
@@ -50,11 +51,25 @@ export default function Main({ thread, onOpenSettings }) {
   // The design pins one activity as "today"; keep that anchor.
   const todayActivity = useMemo(() => findActivity('m12p3'), []);
 
-  const jumpToStage = useCallback(id => {
+  const jumpToStage = useCallback((id, animated = true) => {
     const y = stageTops.current[id];
-    if (y == null || !scrollRef.current) return;
-    scrollRef.current.scrollTo({ y: Math.max(0, threadTop.current + y - 8), animated: true });
+    if (y == null || !scrollRef.current) return false;
+    scrollRef.current.scrollTo({ y: Math.max(0, threadTop.current + y - 8), animated });
+    return true;
   }, []);
+
+  // Open on the stage the child is actually in, rather than at the second
+  // trimester. Runs once, un-animated so it reads as the starting position
+  // rather than a scroll, and only once that stage has reported its layout —
+  // which is why it is driven from onLayout and onContentSizeChange rather
+  // than from mount.
+  const landOnCurrentStage = useCallback(() => {
+    if (landedOnCurrentStage.current) return;
+    if (jumpToStage(currentStage, false)) landedOnCurrentStage.current = true;
+  }, [jumpToStage, currentStage]);
+
+  // a different child, or a birthday crossing a stage boundary, re-arms it
+  useEffect(() => { landedOnCurrentStage.current = false; }, [currentStage]);
 
   const openMilestone = useCallback(id => {
     setActId(null);
@@ -99,6 +114,7 @@ export default function Main({ thread, onOpenSettings }) {
 
       <ScrollView
         ref={scrollRef}
+        onContentSizeChange={() => { if (tab === 'timeline') landOnCurrentStage(); }}
         style={{ flex: 1 }}
         contentContainerStyle={{ paddingBottom: insets.bottom + 96 }}
         keyboardShouldPersistTaps="handled"
@@ -112,7 +128,10 @@ export default function Main({ thread, onOpenSettings }) {
               todayActivity={todayActivity}
               onOpenMilestone={openMilestone}
               onOpenActivity={setActId}
-              onStageLayout={(id, y) => { stageTops.current[id] = y; }}
+              onStageLayout={(id, y) => {
+                stageTops.current[id] = y;
+                if (id === currentStage) landOnCurrentStage();
+              }}
             />
           </View>
         )}
